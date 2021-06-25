@@ -5,3 +5,36 @@ Acquired knowledge will help you to understand the main language mechanics and d
 
 ### Day 00
 Management structures and arrays
+
+### Day 01
+OOP/Collections
+
+### Day 02
+IO/Files
+
+### Day 03
+Threads
+
+### Day 04
+JAR
+
+### Day 05
+SQL/JDBC
+
+### Day 06
+JUNIT/Mockito
+
+### Day 07
+Reflection
+
+### Day 08
+Spring
+
+### Day 09
+Sockets
+
+### Rush 00
+Console Game & Maven
+
+### Rush 01
+Java FX & Sockets
