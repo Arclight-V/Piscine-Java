@@ -1,4 +1,4 @@
-public class Sum_Of_Digits{
+public class Program{
     public static void main(String args[]) {
         int n = 479598, digit = 0, toPrint = 0;
 
