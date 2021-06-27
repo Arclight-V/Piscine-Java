@@ -22,7 +22,7 @@ public class User {
 
     public int getBalance() { return Balance; }
 
-    public void setBalance(int balance) { Balance = balance > 0 ? balance : 0; }
+    public void setBalance(int balance) { Balance = balance; }
 
     public void printUser() {
         System.out.print(ANSI_BLUE + "Profile:\n" + ANSI_RESET +

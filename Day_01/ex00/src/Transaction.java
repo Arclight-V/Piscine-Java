@@ -18,14 +18,6 @@ public class Transaction {
         Recipient = recipient;
         Sender = sender;
         TransferCategory = transferCategory;
-//        if (TransferCategory == Category.debit && transferAmount < 0) {
-//            TransferAmount = 0;
-//        }
-//        else if (TransferCategory == Category.credit && transferAmount > 0) {
-//            TransferAmount = 0;
-//        } else {
-//            TransferAmount = transferAmount;
-//        }
         if (TransferCategory == Category.credit) {
             TransferAmount = transferAmount * -1;
         } else {
@@ -38,14 +30,6 @@ public class Transaction {
         Recipient = recipient;
         Sender = sender;
         TransferCategory = transferCategory;
-//        if (TransferCategory == Category.debit && transferAmount < 0) {
-//            TransferAmount = 0;
-//        }
-//        else if (TransferCategory == Category.credit && transferAmount > 0) {
-//            TransferAmount = 0;
-//        } else {
-//            TransferAmount = transferAmount;
-//        }
         if (TransferCategory == Category.credit) {
             TransferAmount = transferAmount * -1;
         } else {
@@ -78,7 +62,14 @@ public class Transaction {
     }
 
     public void setTransferCategory(Category transferCategory) {
-        TransferCategory = transferCategory;
+        if (transferCategory == Category.credit && TransferCategory != Category.credit) {
+            TransferCategory = transferCategory;
+            TransferAmount *= -1;
+        }
+        else if (transferCategory == Category.debit && TransferCategory == Category.credit) {
+            TransferCategory = transferCategory;
+            TransferAmount *= -1;
+        }
     }
 
     public int getTransferAmount() {
@@ -86,14 +77,6 @@ public class Transaction {
     }
 
     public void setTransferAmount(int transferAmount) {
-//        if (TransferCategory == Category.credit && transferAmount > 0) {
-//            TransferAmount = 0;
-//        }
-//        else if (TransferCategory == Category.debit && transferAmount < 0) {
-//            TransferAmount = 0;
-//        } else {
-//            TransferAmount = transferAmount;
-//        }
         if (TransferCategory == Category.credit) {
             TransferAmount = transferAmount * -1;
         } else {
