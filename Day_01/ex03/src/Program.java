@@ -66,6 +66,7 @@ public class Program {
         System.out.println("\nuserFirst TransactionList after removeTransactionByUUID:");
 
         tmp = userFirst.getTransactionsList().begin();
+        tmp = tmp.next;
         userFirst.deleteTransaction(tmp.getValue_type().getIdentifier());
 
         tmp = userFirst.getTransactionsList().begin();

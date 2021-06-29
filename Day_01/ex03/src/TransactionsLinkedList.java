@@ -25,9 +25,9 @@ public class TransactionsLinkedList implements TransactionsList {
 
     @Override
     public void removeTransactionByUUID(UUID uuidToDelete) throws TransactionNotFoundException {
-        MyLinkedList<Transaction> tmp = first;
 
-        for (int i = 0; i < size; ++i) {
+
+        for (MyLinkedList<Transaction> tmp = first; tmp != null; tmp = tmp.next) {
             if (tmp.getValue_type().getIdentifier().equals(uuidToDelete)) {
                 if (tmp == first) {
                     first = tmp.next;
@@ -40,7 +40,6 @@ public class TransactionsLinkedList implements TransactionsList {
                 }
                 --size;
                 return;
-
             }
         }
         throw new TransactionNotFoundException();
