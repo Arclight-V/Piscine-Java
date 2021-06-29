@@ -1,3 +1,5 @@
+import java.util.UUID;
+
 public class User {
     public static final String ANSI_RESET = "\u001B[0m";
     public static final String ANSI_BLUE = "\u001B[34m";
@@ -26,6 +28,10 @@ public class User {
 
     public TransactionsLinkedList getTransactionsList() {
         return transactionsList;
+    }
+
+    public void deleteTransaction(UUID uuidToDelete) {
+        transactionsList.removeTransactionByUUID(uuidToDelete);
     }
 
     public void printUser() {
