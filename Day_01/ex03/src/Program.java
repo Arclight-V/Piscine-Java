@@ -75,6 +75,12 @@ public class Program {
             tmp = tmp.next;
         }
 
+        tmp = userFirst.getTransactionsList().end();
+        while (tmp != null) {
+            tmp.getValue_type().printTransatction();
+            tmp = tmp.previous;
+        }
+
         System.out.println("\nuserFirst TransactionList after removeTransactionByUUID: exception");
         userFirst.getTransactionsList().removeTransactionByUUID(UUID.randomUUID());
     }
