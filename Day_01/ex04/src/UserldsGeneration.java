@@ -1,6 +1,6 @@
 public class UserldsGeneration {
     private static UserldsGeneration instance;
-    private int Identifier = -1;
+    private int Identifier = 0;
 
     private UserldsGeneration() {}
 

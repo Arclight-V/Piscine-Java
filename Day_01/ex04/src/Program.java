@@ -3,78 +3,35 @@ import java.util.ListIterator;
 import java.util.UUID;
 
 public class Program {
-    public static void main(String []argv) {
+    public static void main(String []argv) throws UserNotFoundException {
 
-        User userFirst = new User("John", 800);
-        userFirst.printUser();
-        User userSecond = new User( "Mike", 0);
-        userSecond.printUser();
+        TransactionService service = new TransactionService();
 
-        int transferAmount = 500;
-        for (int i = 100; i < transferAmount; i += 100) {
-            Transaction transactionCredit = new Transaction(userSecond.getName(), userFirst.getName(), Category.credit, i);
-            userFirst.getTransactionsList().addTransaction(transactionCredit);
-            userFirst.setBalance(userFirst.getBalance() + transactionCredit.getTransferAmount());
+        service.addUser(new User("John", 10000));
+        service.addUser(new User( "Mike", 10000));
 
-            Transaction transactionDebit = new Transaction(userFirst.getName(), userSecond.getName(), Category.debit, i);
-            userSecond.getTransactionsList().addTransaction(transactionDebit);
-            userSecond.setBalance(userFirst.getBalance() + transactionDebit.getTransferAmount());
+        for (int i = 100; i < 500; i += 100) {
+            service.performingTransferTransaction(1, 2, i);
         }
 
-        System.out.println("\nuserFirst TransactionList:\nfirst -> last");
-        MyLinkedList<Transaction> tmp = userFirst.getTransactionsList().begin();
+        int balanceUserFirst = service.retrieverUserBalans(1);
+        int balanceUserSecond = service.retrieverUserBalans(2);
 
-        while (tmp != null) {
-            tmp.getValue_type().printTransatction();
-            tmp = tmp.next;
+        System.out.println("Balance user_1 = " + balanceUserFirst + " Balance user_2 = " + balanceUserSecond + '\n');
+
+        Transaction[] transactions = service.transfersArray(1);
+        for(int i = 0; i< transactions.length; ++i) {
+            transactions[i].printTransatction();
+        }
+        service.removeTransaction(2, transactions[1].getIdentifier());
+
+        Transaction[] unpairedTransaction = service.unpairedTransactionArray();
+
+        System.out.println("Unacknowledged transfers:\n");
+        for (int i = 0; i < unpairedTransaction.length; ++i) {
+            unpairedTransaction[i].printTransatction();
         }
 
-        System.out.println("\nuserFirst TransactionList:\nlast -> first");
-        tmp = userFirst.getTransactionsList().end();
-        while (tmp != null) {
-            tmp.getValue_type().printTransatction();
-            tmp = tmp.previous;
-        }
-
-        System.out.println("\nuserSecond TransactionList:\nfirst -> last");
-        tmp = userSecond.getTransactionsList().begin();
-        while (tmp != null) {
-            tmp.getValue_type().printTransatction();
-            tmp = tmp.next;
-        }
-
-        System.out.println("\nuserSecond TransactionList:\nlast -> first");
-        tmp = userSecond.getTransactionsList().end();
-        while (tmp != null) {
-            tmp.getValue_type().printTransatction();
-            tmp = tmp.previous;
-        }
-
-
-        Transaction transactionArrayUserFirst[] = userFirst.getTransactionsList().transformIntoArray();
-        System.out.println("\nuserFirst transformIntoArray:");
-        for(int i = 0; i < transactionArrayUserFirst.length; ++i) {
-            transactionArrayUserFirst[i].printTransatction();
-        }
-
-        Transaction transactionArrayUserSecond[] = userSecond.getTransactionsList().transformIntoArray();
-        System.out.println("\nuserSecond transformIntoArray:");
-        for(int i = 0; i < transactionArrayUserSecond.length; ++i) {
-            transactionArrayUserSecond[i].printTransatction();
-        }
-
-        System.out.println("\nuserFirst TransactionList after removeTransactionByUUID:");
-
-        tmp = userFirst.getTransactionsList().begin();
-        userFirst.deleteTransaction(tmp.getValue_type().getIdentifier());
-
-        tmp = userFirst.getTransactionsList().begin();
-        while (tmp != null) {
-            tmp.getValue_type().printTransatction();
-            tmp = tmp.next;
-        }
-
-        System.out.println("\nuserFirst TransactionList after removeTransactionByUUID: exception");
-        userFirst.getTransactionsList().removeTransactionByUUID(UUID.randomUUID());
     }
 }
+

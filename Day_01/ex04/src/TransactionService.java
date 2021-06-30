@@ -1,21 +1,25 @@
 import java.util.UUID;
 
 public class TransactionService {
-    UsersArrayList usersList;
+    private UsersArrayList usersList;
+    private TransactionsUnpairedTransactions unpairedTransactions;
 
     public TransactionService() {
+        usersList = new UsersArrayList();
+        unpairedTransactions = new TransactionsUnpairedTransactions();
     }
 
-    void addUser(User userToAdd) {
+    public void addUser(User userToAdd) {
         usersList.addUser(userToAdd);
+        System.out.println("User whith id = " + userToAdd.getIdentifier() + " is added\n");
     }
 
-    int retrieverUserBalans(int userID) throws UserNotFoundException {
+    public int retrieverUserBalans(int userID) throws UserNotFoundException {
         User user = usersList.retrieveUserByID(userID);
         return user.getBalance();
     }
 
-    void performingTransferTransaction(int recipientID, int senderID, int transferAmount) throws UserNotFoundException, IllegalTransactionException {
+    public void performingTransferTransaction(int recipientID, int senderID, int transferAmount) throws UserNotFoundException, IllegalTransactionException {
         User recipient = usersList.retrieveUserByID(recipientID);
         User sender = usersList.retrieveUserByID(senderID);
 
@@ -26,15 +30,28 @@ public class TransactionService {
 
         recipient.addTransaction(debit);
         sender.addTransaction(credit);
+
+        recipient.setBalance(recipient.getBalance() + debit.getTransferAmount());
+        sender.setBalance(sender.getBalance() + credit.getTransferAmount());
+
+        System.out.println("The transfer is complited\n");
     }
 
-    Transaction[] transfersArray(int userID) throws UserNotFoundException{
+    public Transaction[] transfersArray(int userID) throws UserNotFoundException{
         User user = usersList.retrieveUserByID(userID);
         return user.getTransactionsList().transformIntoArray();
     }
 
-    void removeTransaction(int userID, UUID transactID) throws UserNotFoundException, TransactionNotFoundException {
+    public void removeTransaction(int userID, UUID transactID) throws UserNotFoundException, TransactionNotFoundException {
         User user = usersList.retrieveUserByID(userID);
-        user.deleteTransaction(transactID);
+        MyLinkedList<Transaction> transaction = user.deleteTransaction(transactID);
+        unpairedTransactions.addTransaction(transaction.getValue_type());
+        System.out.println("Transfer \n");
+        transaction.getValue_type().printTransatction();
+        System.out.println("removed \n");
+    }
+
+    public Transaction[] unpairedTransactionArray() {
+        return unpairedTransactions.transformIntoArray();
     }
 }

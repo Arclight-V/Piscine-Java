@@ -1,12 +1,11 @@
 import java.util.UUID;
 
-public class TransactionsLinkedList implements TransactionsList {
-
+public class TransactionsUnpairedTransactions implements TransactionsList {
     private MyLinkedList<Transaction>  first;
     private MyLinkedList<Transaction>  last;
     int         size;
 
-    public TransactionsLinkedList() {
+    public TransactionsUnpairedTransactions() {
         this.first = null;
         this.last = null;
         this.size = 0;
@@ -40,8 +39,8 @@ public class TransactionsLinkedList implements TransactionsList {
                 }
                 --size;
                 return tmp;
+
             }
-            tmp = tmp.next;
         }
         throw new TransactionNotFoundException();
     }

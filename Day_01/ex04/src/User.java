@@ -32,8 +32,8 @@ public class User {
 
     public void addTransaction(Transaction transaction) { transactionsList.addTransaction(transaction);}
 
-    public void deleteTransaction(UUID uuidToDelete) {
-        transactionsList.removeTransactionByUUID(uuidToDelete);
+    public MyLinkedList<Transaction> deleteTransaction(UUID uuidToDelete) {
+        return transactionsList.removeTransactionByUUID(uuidToDelete);
     }
 
     public void printUser() {
@@ -42,4 +42,9 @@ public class User {
                         "Name: " + Name + '\n' +
                         "Balance: " +  Balance + "\n\n");
     }
+
+    public void printBalance() {
+        System.out.print( Name + " - " +  Balance + "\n");
+    }
+
 }
