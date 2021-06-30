@@ -4,6 +4,7 @@ import java.io.*;
 import java.util.*;
 import java.lang.String;
 
+import static java.lang.Double.NaN;
 import static java.lang.Math.sqrt;
 
 public class Words {
@@ -91,6 +92,9 @@ public class Words {
             denominatorSecond += vectorSecondFile[i] * vectorSecondFile[i];
         }
         similairy = numerator / (sqrt(denominatorFirst) * sqrt(denominatorSecond));
+        if (Double.isNaN(similairy)) {
+            similairy = 0;
+        }
     }
 
     private void writeToFile() throws FileNotFoundException {
@@ -114,6 +118,6 @@ public class Words {
         Words words = new Words(args[0], args[1]);
         words.createVector();
         words.determinetes();
-        System.out.println("Similarity = " + words.getSimilairy());
+        System.out.println("Similarity = " + String.format("%.5f", words.getSimilairy()));
     }
 }
