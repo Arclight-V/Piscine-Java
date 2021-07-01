@@ -37,7 +37,7 @@ public class Words {
             String[] split;
             while (scanner.hasNextLine()) {
                 line = scanner.nextLine();
-                split = line.split(" ");
+                split = line.split("\\s+");
                 for (int i = 0; i < split.length; ++i) {
                     if (dictonary.get(split[i]) != null) {
                         int find = dictonary.get(split[i]);
