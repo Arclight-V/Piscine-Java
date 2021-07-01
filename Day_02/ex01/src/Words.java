@@ -17,6 +17,7 @@ public class Words {
     private int[] vectorSecondFile;
 
     private double similairy;
+    boolean isFail = false;
 
     public Words(String firstFile, String secondFile) {
         readFromFile(firstFile, dictonaryFirstFile);
@@ -55,7 +56,7 @@ public class Words {
             }
         }
         catch (IOException e) {
-            System.out.println("Exception");
+            isFail = true;
         }
     }
 
@@ -94,6 +95,9 @@ public class Words {
         similairy = numerator / (sqrt(denominatorFirst) * sqrt(denominatorSecond));
         if (Double.isNaN(similairy)) {
             similairy = 0;
+        }
+        if (isFail == true) {
+            similairy = 1;
         }
     }
 
