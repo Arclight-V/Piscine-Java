@@ -67,7 +67,14 @@ class RealMultithreading {
 
     public void parseArgs() {
 
-        String arraySizeStr = args[0], threadsCountStr = args[1];
+        String arraySizeStr = "", threadsCountStr = "";
+        try {
+            arraySizeStr = args[0];
+            threadsCountStr = args[1];
+        } catch (Exception e) {
+            System.out.println("ERROR no number");
+            System.exit(-1);
+        }
 
         if ((arraySizeStr.startsWith("--arraySize=")) && (threadsCountStr.startsWith("--threadsCount="))) {
             try {
