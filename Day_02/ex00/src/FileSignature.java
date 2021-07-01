@@ -9,6 +9,7 @@ public class FileSignature {
     HashMap<String, String> token   = new HashMap<>();
     String buf                      = new String();
     boolean isSignature             = false;
+    boolean fileIsFalse             = false;
     OutputStream output;
 
     FileSignature() {
@@ -64,6 +65,10 @@ public class FileSignature {
 
         String nextLine = in.nextLine();
         try {
+            if (nextLine.equals("42")) {
+                return false;
+            }
+
             FileInputStream sigfis = new FileInputStream(nextLine);
             byte[] sigToVerify = new byte[8];
             sigfis.read(sigToVerify);
@@ -72,7 +77,7 @@ public class FileSignature {
         }
         catch (Exception e) {
             System.out.println("file reading error");
-            return false;
+            fileIsFalse = true;
         }
         return true;
     }
@@ -94,8 +99,10 @@ public class FileSignature {
         boolean loop = true;
         while  (loop == true) {
             loop = file.readFromFile();
-            file.checkFormat();
-            file.writeToFile();
+            if (file.fileIsFalse == false) {
+                file.checkFormat();
+                file.writeToFile();
+            }
         }
 
     }
