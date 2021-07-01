@@ -29,7 +29,6 @@ public class FileSignature {
     }
 
     void checkFormat() {
-        System.out.println("PROCESSED");
         for (Map.Entry<String, String> pair : token.entrySet()) {
             if (buf.lastIndexOf(pair.getValue()) == -1) {
                 isSignature = false;
@@ -46,12 +45,15 @@ public class FileSignature {
         if (isSignature == true) {
 
             try {
+                System.out.println("PROCESSED");
                 output.write(buf.getBytes());
                 output.write('\n');
             }
             catch (IOException e) {
                 System.out.println("Exception");
             }
+        } else {
+            System.out.println("UNDEFINED");
         }
 
     }
@@ -69,7 +71,7 @@ public class FileSignature {
             buf = bytesToHex(sigToVerify);
         }
         catch (Exception e) {
-            e.printStackTrace();
+            System.out.println("file reading error");
             return false;
         }
         return true;
