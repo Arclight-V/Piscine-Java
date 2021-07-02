@@ -42,19 +42,17 @@ class RealMultithreading {
         countSumInArray(NumForThread NT, int num) {
             this.NT = NT;
             this.numThread = num;
-
-            for (int first = NT.getFrist(), last = NT.getLast(); first < last; ++first) {
-                if (first >= arraySize)
-                    break;
-                sum = sum + arrayInt[first];
-            }
-            sumThreads += sum;
         }
 
         @Override
         public void run() {
             synchronized (this) {
-
+                for (int first = NT.getFrist(), last = NT.getLast(); first < last; ++first) {
+                    if (first >= arraySize)
+                        break;
+                    sum = sum + arrayInt[first];
+                }
+                sumThreads += sum;
                 System.out.println("Thread " + numThread + ": from " + (NT.getFrist() == 0 ? NT.getFrist() : NT.getFrist()) + " to " + (NT.getLast() - 1) + " sum is " + sum);
             }
         }
