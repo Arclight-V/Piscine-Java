@@ -6,12 +6,15 @@ import javax.imageio.ImageIO;
 
 public class PrintImage {
 
-    public PrintImage() {}
+    File file;
+    BufferedImage source;
+
+    public PrintImage(String filePath) throws IOException {
+        file = new File(filePath);
+        source = ImageIO.read(file);
+    }
 
     public void printBMP() throws IOException {
-        File file = new File("../../it.bmp");
-        BufferedImage source = ImageIO.read(file);
-
         for (int x = 0; x < source.getWidth(); x++) {
             for (int y = 0; y < source.getHeight(); y++) {
                 Color color = new Color(source.getRGB(x, y));
