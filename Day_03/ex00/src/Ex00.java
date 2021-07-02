@@ -27,6 +27,12 @@ public class Ex00 {
 
         eggThread.start();
         henThread.start();
+        try {
+            eggThread.join();
+            henThread.join();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
 
         for (int i = 0; i < count; ++i) {
             System.out.println("Human");
