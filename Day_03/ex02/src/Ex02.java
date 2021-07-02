@@ -130,7 +130,7 @@ class RealMultithreading {
     public void printThreadSum() throws InterruptedException {
         synchronized (this) {
             wait(1);
-            System.out.println("Sum: " + sumThreads);
+            System.out.println("Sum by threads: " + sumThreads);
         }
     }
 
