@@ -32,6 +32,8 @@ public class PrintImage {
     }
 
     public void printBMP() throws IOException {
+        Ansi.BColor.valueOf(white);
+        Ansi.BColor.valueOf(black);
         for (int x = 0; x < source.getWidth(); x++) {
             for (int y = 0; y < source.getHeight(); y++) {
                 ColoredPrinter cp = new ColoredPrinter();
