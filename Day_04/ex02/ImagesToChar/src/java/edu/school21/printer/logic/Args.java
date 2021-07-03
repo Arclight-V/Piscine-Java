@@ -1,15 +1,19 @@
 package edu.school21.printer.logic;
 
-import com.beust.jcommander.Parameter;
-
 import java.io.IOException;
+import com.beust.jcommander.Parameter;
+import com.beust.jcommander.Parameters;
+
+@Parameters(separators = "=")
 
 public class Args {
 
-    @Parameter(names = {"--white="}, required = true)
-    private String arg1;
-    @Parameter(names = {"--black="}, required = true)
-    private String arg2;
+    @Parameter(names = {"--white"})
+    private static String arg1;
+    @Parameter(names = {"--black"})
+    private static String arg2;
+
+
 
     public void run() throws IOException {
         try {
