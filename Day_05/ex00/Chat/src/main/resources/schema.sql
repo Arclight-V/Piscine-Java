@@ -14,8 +14,8 @@ CREATE TABLE IF NOT EXISTS chat.chatroom (
 
 CREATE TABLE IF NOT EXISTS chat.message (
     messageID SERIAL PRIMARY KEY,
-    author int REFERENCES chat.user(userID) NOT NULL ,
-    chatRoom int REFERENCES chat.chatroom(chatID) NOT NULL ,
+    author int REFERENCES chat.user(userID) NOT NULL,
+    chatRoom int REFERENCES chat.chatroom(chatID) NOT NULL,
     text varchar(max) NOT NULL,
     localDataTime TIMESTAMP NOT NULL
 )
