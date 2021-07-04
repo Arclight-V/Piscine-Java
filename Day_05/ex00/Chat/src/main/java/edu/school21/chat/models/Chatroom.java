@@ -5,7 +5,7 @@ import java.util.Objects;
 
 public class Chatroom {
     private Long            chatId;
-    private String          chatName,
+    private String          chatName;
     private User            chatOwner;
     private List<Message>   messages;
 
