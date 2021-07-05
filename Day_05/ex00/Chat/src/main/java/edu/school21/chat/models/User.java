@@ -6,7 +6,7 @@ import java.util.Objects;
 public class User {
     private Long            userId;
     private String          login,
-                            password;
+            password;
     private List<Chatroom>  createdRooms;
     private List<Chatroom>  activeChatroom;
 
