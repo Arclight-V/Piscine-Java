@@ -6,6 +6,7 @@ import javax.sql.DataSource;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -51,6 +52,15 @@ public class ProductsReposutoryJdbcImpl implements ProductsRepository{
 
     @Override
     public List<Product> findAll() {
+        List<Product> list = new ArrayList<>();
+        Long index = 0L;
+        Optional<Product> optionalProduct;
+        while ((optionalProduct = findById(++index)).isPresent()) {
+            list.add(optionalProduct.get());
+        }
+        if (!list.isEmpty()) {
+            return list;
+        }
         return null;
     }
 
