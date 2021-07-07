@@ -1,4 +1,4 @@
-INSERT INTO chat.product VALUES
+INSERT INTO product.productTable VALUES
 (default, 'Product1', 123),
 (default, 'Product2', 321),
 (default, 'Product3', 456),
