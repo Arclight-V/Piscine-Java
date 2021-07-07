@@ -1,8 +1,6 @@
 package edu.school21.repositories;
 
-import edu.school21.numbers.models.Product;
-import edu.school21.numbers.repositories.ProductsRepository;
-import edu.school21.numbers.repositories.ProductsRepositoryJdbcImpl;
+import edu.school21.models.Product;
 
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.Assertions;
@@ -48,7 +46,7 @@ public class ProductsRepositoryJdbcImplTest {
 
     @Test
     public void findByIdTest() {
-        Assertions.assertEquals(EXPECTED_FIND_BY_ID_PRODUCT, repository.findById(EXPECTED_UPDATED_PRODUCT.getUserId()));
+        Assertions.assertEquals(EXPECTED_FIND_BY_ID_PRODUCT, repository.findById(EXPECTED_FIND_BY_ID_PRODUCT.getUserId()).get());
     }
 
     @Test
@@ -59,8 +57,8 @@ public class ProductsRepositoryJdbcImplTest {
 
     @Test
     public void saveTest() {
-        repository.save(EXPECTED_SAVE_PRODUCT.clone());
-        Assertions.assertEquals(EXPECTED_SAVE_PRODUCT, repository.findById(EXPECTED_SAVE_PRODUCT.getUserId()));
+        repository.save(EXPECTED_SAVE_PRODUCT);
+        Assertions.assertEquals(EXPECTED_SAVE_PRODUCT, repository.findById(EXPECTED_SAVE_PRODUCT.getUserId()).get());
     }
 
     @Test

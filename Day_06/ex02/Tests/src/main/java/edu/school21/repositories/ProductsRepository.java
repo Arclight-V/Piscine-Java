@@ -1,6 +1,6 @@
-package edu.school21.numbers.repositories;
+package edu.school21.repositories;
 
-import edu.school21.numbers.models.Product;
+import edu.school21.models.Product;
 
 import java.util.List;
 import java.util.Optional;

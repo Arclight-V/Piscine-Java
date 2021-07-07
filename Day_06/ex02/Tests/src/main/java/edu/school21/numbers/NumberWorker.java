@@ -1,4 +1,4 @@
-package edu.school21.numbers.NumberWorker;
+package edu.school21.numbers;
 
 public class NumberWorker {
     public static boolean isPrime(int number) throws IllegalNumberException {

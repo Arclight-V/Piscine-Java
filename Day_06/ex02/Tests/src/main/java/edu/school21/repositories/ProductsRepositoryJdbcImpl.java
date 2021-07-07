@@ -1,6 +1,6 @@
-package edu.school21.numbers.repositories;
+package edu.school21.repositories;
 
-import edu.school21.numbers.models.Product;
+import edu.school21.models.Product;
 
 import javax.sql.DataSource;
 import java.sql.PreparedStatement;
@@ -17,7 +17,6 @@ public class ProductsRepositoryJdbcImpl implements ProductsRepository{
     PreparedStatement   preparedStatement;
 
     final String selectProductId =  "SELECT * FROM product.productTable WHERE productID = ";
-    final String selectSaveProduct =  "INSERT INTO product.productTable VALUES (default, ";
     final String selectUpdateProduct =  "UPDATE product.productTable SET ";
     final String selectDeleteProduct =  "DELETE FROM product.productTable WHERE productID = ";
 
@@ -75,7 +74,13 @@ public class ProductsRepositoryJdbcImpl implements ProductsRepository{
 
     @Override
     public void save(Product product) {
-        retResultSet(selectSaveProduct + product.getName() + ',' + product.getPrice() + " ) RETURNING id");
+        try {
+            preparedStatement = dataSource.getConnection().prepareStatement(String.format("INSERT INTO product.productTable VALUES (default, '%s', %d);", product.getName(), product.getPrice()));
+            preparedStatement.execute();
+
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
     }
 
     @Override

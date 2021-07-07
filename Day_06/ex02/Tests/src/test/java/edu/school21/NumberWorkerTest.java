@@ -1,8 +1,9 @@
-package edu.school21.numbers;
+package edu.school21;
 
-import edu.school21.numbers.NumberWorker.IllegalNumberException;
-import edu.school21.numbers.NumberWorker.NumberWorker;
+import edu.school21.numbers.IllegalNumberException;
+import edu.school21.numbers.NumberWorker;
 
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.CsvFileSource;
 import org.junit.jupiter.params.provider.ValueSource;
@@ -14,7 +15,7 @@ class NumberWorkerTest {
     @ParameterizedTest
     @ValueSource(ints = {2, 3, 11, 5, 7, 53, 61, 199, 151})
     public void isPrimeForPrimes(int candidate) {
-        assertTrue(NumberWorker.isPrime(candidate));
+        Assertions.assertTrue(NumberWorker.isPrime(candidate));
     }
 
     @ParameterizedTest
