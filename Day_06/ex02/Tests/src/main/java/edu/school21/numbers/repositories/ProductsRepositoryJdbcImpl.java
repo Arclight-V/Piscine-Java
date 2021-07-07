@@ -10,14 +10,17 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
-public class ProductsReposutoryJdbcImpl implements ProductsRepository{
+public class ProductsRepositoryJdbcImpl implements ProductsRepository{
 
     DataSource          dataSource;
     ResultSet           resultSet;
     PreparedStatement   preparedStatement;
 
-    String selectProductId =  "SELECT * FROM chat.user WHERE userID = ";
-    String selectSaveProduct =  "INSERT INTO product.productTable VALUES (default, ";
+    final String selectProductId =  "SELECT * FROM product.productTable WHERE productID = ";
+    final String selectSaveProduct =  "INSERT INTO product.productTable VALUES (default, ";
+    final String selectUpdateProduct =  "UPDATE product.productTable SET ";
+    final String selectDeleteProduct =  "DELETE FROM product.productTable WHERE productID = ";
+
 
     private boolean retResultSet(String select) {
         try {
@@ -32,7 +35,7 @@ public class ProductsReposutoryJdbcImpl implements ProductsRepository{
         return true;
     }
 
-    public ProductsReposutoryJdbcImpl(DataSource dataSource) {
+    public ProductsRepositoryJdbcImpl(DataSource dataSource) {
         this.dataSource = dataSource;
     }
 
@@ -67,16 +70,16 @@ public class ProductsReposutoryJdbcImpl implements ProductsRepository{
 
     @Override
     public void update(Product product) {
-
+        retResultSet(selectUpdateProduct + " WHERE productID = " + product.getUserId() + ", name = " + product.getName() + ", price = " + product.getPrice() + ')');
     }
 
     @Override
     public void save(Product product) {
-        retResultSet(selectSaveProduct + product.getName() + ',' + product.getPrice());
+        retResultSet(selectSaveProduct + product.getName() + ',' + product.getPrice() + " ) RETURNING id");
     }
 
     @Override
     public void delete(Long id) {
-
+        retResultSet(selectDeleteProduct + id);
     }
 }

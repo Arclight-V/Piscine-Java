@@ -2,9 +2,9 @@ package edu.school21.repositories;
 
 import edu.school21.numbers.models.Product;
 import edu.school21.numbers.repositories.ProductsRepository;
-import edu.school21.numbers.repositories.ProductsReposutoryJdbcImpl;
+import edu.school21.numbers.repositories.ProductsRepositoryJdbcImpl;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.springframework.jdbc.datasource.embedded.EmbeddedDatabaseBuilder;
@@ -13,7 +13,7 @@ import javax.sql.DataSource;
 import java.util.Arrays;
 import java.util.List;
 
-public class ProductsReposutoryJdbcImplTest {
+public class ProductsRepositoryJdbcImplTest {
 
     DataSource dataSource;
     ProductsRepository repository;
@@ -38,33 +38,33 @@ public class ProductsReposutoryJdbcImplTest {
                 .addScript("schema.sql")
                 .addScript("data.sql")
                 .build();
-        repository = new ProductsReposutoryJdbcImpl(dataSource);
+        repository = new ProductsRepositoryJdbcImpl(dataSource);
     }
 
     @Test
-    void findAllTest() {
+    public void findAllTest() {
         Assertions.assertEquals(EXPECTED_FIND_ALL_PRODUCTS, repository.findAll());
     }
 
     @Test
-    void findByIdTest() {
+    public void findByIdTest() {
         Assertions.assertEquals(EXPECTED_FIND_BY_ID_PRODUCT, repository.findById(EXPECTED_UPDATED_PRODUCT.getUserId()));
     }
 
     @Test
-    void updateTest() {
+    public void updateTest() {
         repository.update(EXPECTED_UPDATED_PRODUCT);
         Assertions.assertEquals(EXPECTED_FIND_BY_ID_PRODUCT, repository.findById(EXPECTED_UPDATED_PRODUCT.getUserId()));
     }
 
     @Test
-    void saveTest() {
-        repository.save(EXPECTED_SAVE_PRODUCT);
+    public void saveTest() {
+        repository.save(EXPECTED_SAVE_PRODUCT.clone());
         Assertions.assertEquals(EXPECTED_SAVE_PRODUCT, repository.findById(EXPECTED_SAVE_PRODUCT.getUserId()));
     }
 
     @Test
-    void deleteTest() {
+    public void deleteTest() {
         repository.delete(EXPECTED_FIND_ALL_PRODUCTS.get(2).getUserId());
         Assertions.assertNull(repository.findById(EXPECTED_FIND_ALL_PRODUCTS.get(2).getUserId()));
     }
