@@ -3,13 +3,12 @@ package edu.school21.repositories;
 import edu.school21.numbers.models.Product;
 import edu.school21.numbers.repositories.ProductsRepository;
 import edu.school21.numbers.repositories.ProductsReposutoryJdbcImpl;
+
 import org.junit.Test;
-import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.springframework.jdbc.datasource.embedded.EmbeddedDatabaseBuilder;
 import org.springframework.jdbc.datasource.embedded.EmbeddedDatabaseType;
-
 import javax.sql.DataSource;
 import java.util.Arrays;
 import java.util.List;
