@@ -52,7 +52,7 @@ public class ProductsRepositoryJdbcImplTest {
     @Test
     public void updateTest() {
         repository.update(EXPECTED_UPDATED_PRODUCT);
-        Assertions.assertEquals(EXPECTED_FIND_BY_ID_PRODUCT, repository.findById(EXPECTED_UPDATED_PRODUCT.getUserId()).get());
+        Assertions.assertEquals(EXPECTED_UPDATED_PRODUCT, repository.findById(EXPECTED_UPDATED_PRODUCT.getUserId()).get());
     }
 
     @Test

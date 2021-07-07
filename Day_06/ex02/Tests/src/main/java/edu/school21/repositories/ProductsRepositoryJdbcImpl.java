@@ -69,7 +69,13 @@ public class ProductsRepositoryJdbcImpl implements ProductsRepository{
 
     @Override
     public void update(Product product) {
-        retResultSet(selectUpdateProduct + " WHERE productID = " + product.getUserId() + ", name = " + product.getName() + ", price = " + product.getPrice() + ')');
+        try {
+            preparedStatement = dataSource.getConnection().prepareStatement(selectUpdateProduct + "name = " + '\'' + product.getName() + '\''  + ", price = " + product.getPrice() + " WHERE productID = " + product.getUserId());
+            preparedStatement.execute();
+
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
     }
 
     @Override
