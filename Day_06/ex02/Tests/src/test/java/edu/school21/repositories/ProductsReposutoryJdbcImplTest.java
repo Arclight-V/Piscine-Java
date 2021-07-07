@@ -28,7 +28,7 @@ public class ProductsReposutoryJdbcImplTest {
             );
     final Product EXPECTED_FIND_BY_ID_PRODUCT = EXPECTED_FIND_ALL_PRODUCTS.get(2);
     final Product EXPECTED_UPDATED_PRODUCT = new Product("Product4", 4L , 999L);
-    final Product EXPECTED_SAVE_PRODUCT = new Product("Product6", 5L , 1000L);
+    final Product EXPECTED_SAVE_PRODUCT = new Product("Product6", 1000L);
 
     @BeforeEach
     void init() {

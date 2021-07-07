@@ -17,6 +17,7 @@ public class ProductsReposutoryJdbcImpl implements ProductsRepository{
     PreparedStatement   preparedStatement;
 
     String selectProductId =  "SELECT * FROM chat.user WHERE userID = ";
+    String selectSaveProduct =  "INSERT INTO product.productTable VALUES (default, ";
 
     private boolean retResultSet(String select) {
         try {
@@ -71,7 +72,7 @@ public class ProductsReposutoryJdbcImpl implements ProductsRepository{
 
     @Override
     public void save(Product product) {
-
+        retResultSet(selectSaveProduct + product.getName() + ',' + product.getPrice());
     }
 
     @Override
