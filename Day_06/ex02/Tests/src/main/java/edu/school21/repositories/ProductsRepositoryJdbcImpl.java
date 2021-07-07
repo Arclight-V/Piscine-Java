@@ -85,6 +85,12 @@ public class ProductsRepositoryJdbcImpl implements ProductsRepository{
 
     @Override
     public void delete(Long id) {
-        retResultSet(selectDeleteProduct + id);
+        try {
+            preparedStatement = dataSource.getConnection().prepareStatement(selectDeleteProduct + id);
+            preparedStatement.execute();
+
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        };
     }
 }
