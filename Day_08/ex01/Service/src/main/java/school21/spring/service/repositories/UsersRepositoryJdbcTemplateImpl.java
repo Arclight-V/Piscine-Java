@@ -13,11 +13,11 @@ public class UsersRepositoryJdbcTemplateImpl implements UsersRepository{
 
     private JdbcTemplate jdbcTemplate;
 
-    final String selectUserId =  "SELECT * FROM users.userTable WHERE userID = ";
-    final String selectAll =  "SELECT * FROM users.userTable";
-    final String UpdateUser =  "UPDATE users.userTable SET ";
-    final String DeleteUser =  "DELETE FROM users.userTable WHERE userID = ";
-    final String selectUserEmail =  "SELECT * FROM users.userTable WHERE email = ";
+    final String selectUserId =  "SELECT * FROM users.usertable WHERE userid = ";
+    final String selectAll =  "SELECT * FROM users.usertable";
+    final String UpdateUser =  "UPDATE users.usertable SET ";
+    final String DeleteUser =  "DELETE FROM users.usertable WHERE userid = ";
+    final String selectUserEmail =  "SELECT * FROM users.usertable WHERE email = ";
 
     public UsersRepositoryJdbcTemplateImpl(DataSource dataSource) {
         this.jdbcTemplate = new JdbcTemplate(dataSource);
@@ -32,7 +32,7 @@ public class UsersRepositoryJdbcTemplateImpl implements UsersRepository{
     @Override
     public List<User> findAll() {
         List<User> list = jdbcTemplate.query(selectAll, new BeanPropertyRowMapper<>(User.class));
-        return null;
+        return list;
     }
 
     @Override
@@ -42,7 +42,7 @@ public class UsersRepositoryJdbcTemplateImpl implements UsersRepository{
 
     @Override
     public void update(User entity) {
-        jdbcTemplate.update(UpdateUser + "email = " + '\'' + entity.getEmail() + '\'' + " WHERE userID = " + entity.getIdentifier());
+        jdbcTemplate.update(UpdateUser + "email = " + '\'' + entity.getEmail() + '\'' + " WHERE userid = " + entity.getIdentifier());
     }
 
     @Override
@@ -52,7 +52,6 @@ public class UsersRepositoryJdbcTemplateImpl implements UsersRepository{
 
     @Override
     public Optional<User> findByEmail(String email) {
-
         return Optional.of(jdbcTemplate.queryForObject(selectUserEmail + email, new Object[]{email}, new BeanPropertyRowMapper<>(User.class)));
     }
 }
