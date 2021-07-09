@@ -89,8 +89,6 @@ public class UsersRepositoryJdbcImpl implements UsersRepository {
         } catch (SQLException throwables) {
             throwables.printStackTrace();
         }
-
-
     }
 
     @Override
