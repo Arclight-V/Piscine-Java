@@ -18,7 +18,10 @@ public class UsersRepositoryJdbcImpl implements UsersRepository {
     PreparedStatement   preparedStatement;
     ResultSet           resultSet;
 
-    final String selectUserId =  "SELECT * FROM users.user WHERE userID = ";
+    final String selectUserId =  "SELECT * FROM users.userTable WHERE userID = ";
+    final String UpdateUser =  "UPDATE users.userTable SET ";
+    final String DeleteUser =  "DELETE FROM users.userTable WHERE userID = ";
+    final String selectUserEmail =  "SELECT * FROM users.userTable WHERE email = ";
 
 
     public UsersRepositoryJdbcImpl(DataSource dataSource) {
@@ -66,7 +69,7 @@ public class UsersRepositoryJdbcImpl implements UsersRepository {
     @Override
     public void save(User entity) {
         try {
-            preparedStatement = connection.prepareStatement(String.format("INSERT INTO users.user VALUES ('%d', %s);", entity.getIdentifier(), entity.getEmail()));
+            preparedStatement = connection.prepareStatement(String.format("INSERT INTO users.userTable VALUES ('%d', %s);", entity.getIdentifier(), entity.getEmail()));
             preparedStatement.execute();
             connection.close();
             preparedStatement.close();
@@ -77,16 +80,48 @@ public class UsersRepositoryJdbcImpl implements UsersRepository {
 
     @Override
     public void update(User entity) {
+        try {
+            connection = dataSource.getConnection();
+            preparedStatement = connection.prepareStatement(UpdateUser + "email = " + '\'' + entity.getEmail() + '\'' + " WHERE userID = " + entity.getIdentifier());
+            preparedStatement.execute();
+            connection.close();
+            preparedStatement.close();;
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
+
 
     }
 
     @Override
     public void delete(Long id) {
-
+        try {
+            connection = dataSource.getConnection();
+            preparedStatement = connection.prepareStatement(DeleteUser + id);
+            preparedStatement.execute();
+            connection.close();
+            preparedStatement.close();
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
     }
 
     @Override
     public Optional<User> findByEmail(String email) {
+        try {
+            connection = dataSource.getConnection();
+            preparedStatement = connection.prepareStatement(selectUserEmail + email);
+            resultSet = preparedStatement.executeQuery();
+            if (resultSet.next()) {
+                User user = new User(resultSet.getLong(1), resultSet.getString(2));
+                preparedStatement.close();
+                resultSet.close();
+                connection.close();
+                return Optional.of(user);
+            }
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
         return Optional.empty();
     }
 }
