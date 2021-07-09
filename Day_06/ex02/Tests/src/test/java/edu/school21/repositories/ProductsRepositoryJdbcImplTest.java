@@ -18,15 +18,15 @@ public class ProductsRepositoryJdbcImplTest {
 
     final List<Product> EXPECTED_FIND_ALL_PRODUCTS =
             Arrays.asList(
-                    new Product("Product1", 123L),
-                    new Product("Product2", 321L),
-                    new Product("Product3", 456L),
-                    new Product("Product4", 654L),
-                    new Product("Product5", 789L)
+                    new Product( "Product1", 1L, 123L),
+                    new Product("Product2", 2L,321L),
+                    new Product("Product3", 3L,456L),
+                    new Product("Product4", 4L,654L),
+                    new Product("Product5", 5L,789L)
             );
     final Product EXPECTED_FIND_BY_ID_PRODUCT = EXPECTED_FIND_ALL_PRODUCTS.get(2);
     final Product EXPECTED_UPDATED_PRODUCT = new Product("Product4", 4L , 999L);
-    final Product EXPECTED_SAVE_PRODUCT = new Product("Product6", 1000L);
+    final Product EXPECTED_SAVE_PRODUCT = new Product("Product6", 6L, 1000L);
 
     @BeforeEach
     void init() {

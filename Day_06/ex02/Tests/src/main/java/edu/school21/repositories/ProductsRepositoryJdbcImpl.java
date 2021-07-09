@@ -3,6 +3,7 @@ package edu.school21.repositories;
 import edu.school21.models.Product;
 
 import javax.sql.DataSource;
+import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -15,6 +16,7 @@ public class ProductsRepositoryJdbcImpl implements ProductsRepository{
     DataSource          dataSource;
     ResultSet           resultSet;
     PreparedStatement   preparedStatement;
+    Connection connection;
 
     final String selectProductId =  "SELECT * FROM product.productTable WHERE productID = ";
     final String selectUpdateProduct =  "UPDATE product.productTable SET ";
@@ -23,7 +25,8 @@ public class ProductsRepositoryJdbcImpl implements ProductsRepository{
 
     private boolean retResultSet(String select) {
         try {
-            preparedStatement = dataSource.getConnection().prepareStatement(select);
+            connection = dataSource.getConnection();
+            preparedStatement = connection.prepareStatement(select);
             resultSet = preparedStatement.executeQuery();
             if (!resultSet.next()) {
                 return false;
@@ -45,7 +48,11 @@ public class ProductsRepositoryJdbcImpl implements ProductsRepository{
                 Product product = new Product(resultSet.getString(2),
                                                 resultSet.getLong(1),
                                                 resultSet.getLong(3));
+                preparedStatement.close();
+                resultSet.close();
+                connection.close();
                 return Optional.of(product);
+
             } catch (SQLException throwables) {
                 throwables.printStackTrace();
             }
@@ -70,8 +77,11 @@ public class ProductsRepositoryJdbcImpl implements ProductsRepository{
     @Override
     public void update(Product product) {
         try {
-            preparedStatement = dataSource.getConnection().prepareStatement(selectUpdateProduct + "name = " + '\'' + product.getName() + '\''  + ", price = " + product.getPrice() + " WHERE productID = " + product.getUserId());
+            connection = dataSource.getConnection();
+            preparedStatement = connection.prepareStatement(selectUpdateProduct + "name = " + '\'' + product.getName() + '\''  + ", price = " + product.getPrice() + " WHERE productID = " + product.getUserId());
             preparedStatement.execute();
+            connection.close();
+            preparedStatement.close();
 
         } catch (SQLException throwables) {
             throwables.printStackTrace();
@@ -81,8 +91,11 @@ public class ProductsRepositoryJdbcImpl implements ProductsRepository{
     @Override
     public void save(Product product) {
         try {
-            preparedStatement = dataSource.getConnection().prepareStatement(String.format("INSERT INTO product.productTable VALUES (default, '%s', %d);", product.getName(), product.getPrice()));
+            connection = dataSource.getConnection();
+            preparedStatement = connection.prepareStatement(String.format("INSERT INTO product.productTable VALUES (default, '%s', %d);", product.getName(), product.getPrice()));
             preparedStatement.execute();
+            connection.close();
+            preparedStatement.close();
 
         } catch (SQLException throwables) {
             throwables.printStackTrace();
@@ -92,8 +105,11 @@ public class ProductsRepositoryJdbcImpl implements ProductsRepository{
     @Override
     public void delete(Long id) {
         try {
-            preparedStatement = dataSource.getConnection().prepareStatement(selectDeleteProduct + id);
+            connection = dataSource.getConnection();
+            preparedStatement = connection.prepareStatement(selectDeleteProduct + id);
             preparedStatement.execute();
+            connection.close();
+            preparedStatement.close();
 
         } catch (SQLException throwables) {
             throwables.printStackTrace();

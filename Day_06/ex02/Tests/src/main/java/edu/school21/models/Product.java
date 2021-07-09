@@ -7,12 +7,6 @@ public class Product {
     Long userId;
     Long price;
 
-    public Product(String name, Long price) {
-        this.name = name;
-        this.price = price;
-        this.userId = UserldsGeneration.getInstance().generateId();
-    }
-
     public Product(String name, Long userId, Long price) {
         this.name = name;
         this.userId = userId;
@@ -25,25 +19,6 @@ public class Product {
         if (o == null || getClass() != o.getClass()) return false;
         Product product = (Product) o;
         return name.equals(product.name) && userId.equals(product.userId) && price.equals(product.price);
-    }
-
-
-    private static class UserldsGeneration {
-        private static UserldsGeneration instance;
-        private Long Identifier = 0L;
-
-        private UserldsGeneration() {}
-
-        public static UserldsGeneration getInstance() {
-            if (instance == null) {
-                instance = new UserldsGeneration();
-            }
-            return instance;
-        }
-
-        public Long generateId() {
-            return ++Identifier;
-        }
     }
 
 
