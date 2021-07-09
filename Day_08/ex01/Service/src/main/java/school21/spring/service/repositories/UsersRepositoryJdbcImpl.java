@@ -48,6 +48,15 @@ public class UsersRepositoryJdbcImpl implements UsersRepository {
 
     @Override
     public List<User> findAll() {
+        List<User> list = new ArrayList<>();
+        Long identifier = 0L;
+        User userToAdd = null;
+        while ((userToAdd = findById(++identifier)) != null) {
+            list.add(userToAdd);
+        }
+        if (!list.isEmpty()) {
+            return list;
+        }
         return null;
     }
 
