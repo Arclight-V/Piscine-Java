@@ -37,6 +37,9 @@ public class UsersRepositoryJdbcImpl implements UsersRepository {
             resultSet = preparedStatement.executeQuery();
             if (resultSet.next()) {
                 User user = new User(resultSet.getLong(1), resultSet.getString(2));
+                preparedStatement.close();
+                resultSet.close();
+                connection.close();
                 return user;
             }
 
@@ -62,7 +65,14 @@ public class UsersRepositoryJdbcImpl implements UsersRepository {
 
     @Override
     public void save(User entity) {
-
+        try {
+            preparedStatement = connection.prepareStatement(String.format("INSERT INTO users.user VALUES ('%d', %s);", entity.getIdentifier(), entity.getEmail()));
+            preparedStatement.execute();
+            connection.close();
+            preparedStatement.close();
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
     }
 
     @Override
