@@ -2,10 +2,18 @@ package school21.spring.service.repositories;
 
 import school21.spring.service.models.User;
 
+import javax.sql.DataSource;
 import java.util.List;
 import java.util.Optional;
 
 public class UsersRepositoryJdbcImpl implements UsersRepository {
+
+    DataSource dataSource;
+
+    public UsersRepositoryJdbcImpl(DataSource dataSource) {
+        this.dataSource = dataSource;
+    }
+
     @Override
     public User findById(Long id) {
         return null;
