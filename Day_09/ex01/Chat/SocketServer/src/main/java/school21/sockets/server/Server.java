@@ -84,18 +84,20 @@ public class Server {
 
             try {
                 while(true) {
-                    massageClient = in.readLine();
-                    if (massageClient.equals("exit")) {
-                        break;
-                    }
-                    out.println(login + " :" + massageClient);
-                    for (EchoClientHandler echoClientHandler : echoClientHandlers) {
-//                        echoClientHandler.out.println(login + " :" + massageClient);
-                        out.write(login + massageClient + '\n');
-                        out.flush();
+
+                    if (in.ready()) {
+                        massageClient = in.readLine();
+                        if (massageClient.equals("exit")) {
+                            break;
+                        }
+                        out.println(login + " :" + massageClient);
+                        for (EchoClientHandler echoClientHandler : echoClientHandlers) {
+                            echoClientHandler.out.println(login + " :" + massageClient);
+                            Thread.sleep(1000);
+                        }
                     }
                 }
-            } catch (IOException e) {
+            } catch (IOException | InterruptedException e) {
                 e.printStackTrace();
             }
         }
