@@ -60,7 +60,7 @@ public class Server {
                         signUp();
                         messaging();
                     } else if (messageFromClient.equals("signIn")) {
-//                        signIn();
+                        signIn();
                         messaging();
                     } else {
                         out.println("unrecognised command");
@@ -78,6 +78,24 @@ public class Server {
             }
         }
 
+        private void signIn() {
+            String password;
+
+            try {
+                out.println("Enter username:");
+                login = in.readLine();
+                out.println("Enter password:");
+                password = in.readLine();
+                if (login.isEmpty() || password.isEmpty()) {
+                    out.println("Login and password not be empty:");
+                } else {
+                    usersService.signIn(login, password);
+                }
+            } catch (IOException | SQLException e) {
+                e.printStackTrace();
+            }
+        }
+
         private void messaging() {
             out.println("Start messaging");
             String massageClient;
@@ -90,7 +108,6 @@ public class Server {
                         if (massageClient.equals("exit")) {
                             break;
                         }
-                        out.println(login + " :" + massageClient);
                         for (EchoClientHandler echoClientHandler : echoClientHandlers) {
                             echoClientHandler.out.println(login + " :" + massageClient);
                             Thread.sleep(1000);
@@ -113,9 +130,9 @@ public class Server {
                     if (login.isEmpty() || password.isEmpty()) {
                         out.println("Login and password not be empty:");
                     } else {
-//                        usersService.signUp(login, password);
+                        usersService.signUp(login, password);
                     }
-            } catch (IOException  e) {
+            } catch (IOException | SQLException e) {
                 e.printStackTrace();
             }
         }

@@ -11,6 +11,7 @@ import org.springframework.core.env.Environment;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
+import school21.sockets.repositories.MessageRepository;
 import school21.sockets.repositories.UsersRepository;
 import school21.sockets.repositories.UsersRepositoryImpl;
 import school21.sockets.server.Server;
@@ -54,5 +55,11 @@ public class SocketsApplicationConfig {
     public Server server() {
         return new Server();
     }
+
+    @Bean
+    public MessageRepository messageRepository(HikariDataSource hikariDataSource) {
+        return new MessageRepository(hikariDataSource);
+    }
+
 
 }
