@@ -1,5 +1,7 @@
 package school21.sockets.repositories;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 import school21.sockets.models.User;
 
 import javax.sql.DataSource;
@@ -9,6 +11,7 @@ import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 
 
+@Component
 public class UsersRepositoryJdbcImpl implements UsersRepository{
 
     private JdbcTemplate jdbcTemplate;
@@ -18,7 +21,8 @@ public class UsersRepositoryJdbcImpl implements UsersRepository{
     final String UpdateUser =  "UPDATE users.usertable SET ";
     final String DeleteUser =  "DELETE FROM users.usertable WHERE userid = ";
     final String selectUserEmail =  "SELECT * FROM users.usertable WHERE email = ";
-    
+
+    @Autowired
     public UsersRepositoryJdbcImpl(DataSource dataSource) {
         this.jdbcTemplate = new JdbcTemplate(dataSource);
     }
