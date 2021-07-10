@@ -15,7 +15,7 @@ import school21.sockets.repositories.UsersRepositoryJdbcImpl;
 
 
 @Configuration
-@ComponentScan("school21.spring.service")
+@ComponentScan("school21.sockets")
 @PropertySource("classpath:db.properties")
 
 public class SocketsApplicationConfig {
