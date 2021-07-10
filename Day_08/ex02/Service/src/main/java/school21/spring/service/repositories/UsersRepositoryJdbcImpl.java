@@ -1,5 +1,6 @@
 package school21.spring.service.repositories;
 
+import org.springframework.stereotype.Component;
 import school21.spring.service.models.User;
 
 import javax.sql.DataSource;
@@ -11,6 +12,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
+@Component
 public class UsersRepositoryJdbcImpl implements UsersRepository {
 
     DataSource          dataSource;

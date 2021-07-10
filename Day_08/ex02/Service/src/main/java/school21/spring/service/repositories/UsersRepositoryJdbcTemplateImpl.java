@@ -18,7 +18,7 @@ public class UsersRepositoryJdbcTemplateImpl implements UsersRepository{
     final String UpdateUser =  "UPDATE users.usertable SET ";
     final String DeleteUser =  "DELETE FROM users.usertable WHERE userid = ";
     final String selectUserEmail =  "SELECT * FROM users.usertable WHERE email = ";
-
+    
     public UsersRepositoryJdbcTemplateImpl(DataSource dataSource) {
         this.jdbcTemplate = new JdbcTemplate(dataSource);
     }

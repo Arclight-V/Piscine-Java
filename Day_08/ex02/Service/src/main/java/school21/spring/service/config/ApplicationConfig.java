@@ -3,6 +3,7 @@ package school21.spring.service.config;
 import com.zaxxer.hikari.HikariConfig;
 import com.zaxxer.hikari.HikariDataSource;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
@@ -20,13 +21,17 @@ import school21.spring.service.repositories.UsersRepositoryJdbcTemplateImpl;
 
 public class ApplicationConfig {
 
+
+    @Value("spring.datasource.url")
+    private String url;
+
     @Autowired
     private Environment env;
 
     @Bean
     public HikariConfig hikariConfig() {
         HikariConfig hikariConfig = new HikariConfig();
-        hikariConfig.setJdbcUrl(env.getProperty("spring.datasource.url"));
+        hikariConfig.setJdbcUrl(url);
         hikariConfig.setUsername(env.getProperty("spring.datasource.username"));
         hikariConfig.setPassword(env.getProperty("spring.datasource.password"));
         hikariConfig.setUsername(env.getProperty("spring.datasource.username"));
