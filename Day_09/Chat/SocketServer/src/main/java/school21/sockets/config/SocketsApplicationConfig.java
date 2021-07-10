@@ -20,20 +20,16 @@ import school21.sockets.repositories.UsersRepositoryJdbcImpl;
 
 public class SocketsApplicationConfig {
 
-
-    @Value("spring.datasource.url")
-    private String url;
-
     @Autowired
     private Environment env;
 
     @Bean
     public HikariConfig hikariConfig() {
         HikariConfig hikariConfig = new HikariConfig();
-        hikariConfig.setJdbcUrl(url);
-        hikariConfig.setUsername(env.getProperty("spring.datasource.username"));
-        hikariConfig.setPassword(env.getProperty("spring.datasource.password"));
-        hikariConfig.setUsername(env.getProperty("spring.datasource.username"));
+        hikariConfig.setJdbcUrl(env.getProperty("db.url"));
+        hikariConfig.setUsername(env.getProperty("db.user"));
+        hikariConfig.setPassword(env.getProperty("db.password"));
+        hikariConfig.setUsername(env.getProperty("db.driver.name"));
         return  hikariConfig;
     }
 
@@ -44,11 +40,6 @@ public class SocketsApplicationConfig {
 
     @Bean
     public UsersRepository usersRepositoryJdbc(HikariDataSource hikariDataSource) {
-        return new UsersRepositoryJdbcImpl(hikariDataSource);
-    }
-
-    @Bean
-    public UsersRepository usersRepositoryJdbcTemplate(HikariDataSource hikariDataSource) {
         return new UsersRepositoryJdbcImpl(hikariDataSource);
     }
 
