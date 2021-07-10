@@ -12,10 +12,8 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
 import school21.sockets.repositories.UsersRepository;
-import school21.sockets.repositories.UsersRepositoryJdbcImpl;
+import school21.sockets.repositories.UsersRepositoryImpl;
 import school21.sockets.server.Server;
-
-import javax.sql.DataSource;
 
 
 @Configuration
@@ -33,7 +31,7 @@ public class SocketsApplicationConfig {
         hikariConfig.setJdbcUrl(env.getProperty("db.url"));
         hikariConfig.setUsername(env.getProperty("db.user"));
         hikariConfig.setPassword(env.getProperty("db.password"));
-        hikariConfig.setUsername(env.getProperty("db.driver.name"));
+        hikariConfig.setDriverClassName(env.getProperty("db.driver.name"));
         return  hikariConfig;
     }
 
@@ -43,8 +41,8 @@ public class SocketsApplicationConfig {
     }
 
     @Bean
-    public UsersRepository usersRepositoryJdbc(HikariDataSource hikariDataSource) {
-        return new UsersRepositoryJdbcImpl(hikariDataSource);
+    public UsersRepository usersRepository(HikariDataSource hikariDataSource) {
+        return new UsersRepositoryImpl(hikariDataSource);
     }
 
     @Bean

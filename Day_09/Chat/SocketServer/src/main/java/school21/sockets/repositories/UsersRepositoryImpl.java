@@ -1,5 +1,6 @@
 package school21.sockets.repositories;
 
+import com.zaxxer.hikari.HikariDataSource;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import school21.sockets.models.User;
@@ -12,7 +13,7 @@ import org.springframework.jdbc.core.BeanPropertyRowMapper;
 
 
 @Component
-public class UsersRepositoryJdbcImpl implements UsersRepository{
+public class UsersRepositoryImpl implements UsersRepository{
 
     private JdbcTemplate jdbcTemplate;
 
@@ -23,7 +24,7 @@ public class UsersRepositoryJdbcImpl implements UsersRepository{
     final String selectUserEmail =  "SELECT * FROM users.usertable WHERE email = ";
 
     @Autowired
-    public UsersRepositoryJdbcImpl(DataSource dataSource) {
+    public UsersRepositoryImpl(HikariDataSource dataSource) {
         this.jdbcTemplate = new JdbcTemplate(dataSource);
     }
 

@@ -5,8 +5,8 @@
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>org.example</groupId>
-    <artifactId>SocketServer</artifactId>
-    <version>1.0-SNAPSHOT</version>
+    <artifactId>socket</artifactId>
+    <version>-sever</version>
 
 
     <dependencies>
@@ -48,10 +48,23 @@
         </dependency>
 
         <dependency>
+            <groupId>org.postgresql</groupId>
+            <artifactId>postgresql</artifactId>
+            <version>42.2.22</version>
+        </dependency>
+
+        <dependency>
             <groupId>org.apache.maven.plugins</groupId>
             <artifactId>maven-assembly-plugin</artifactId>
             <version>3.3.0</version>
         </dependency>
+
+        <dependency>
+            <groupId>org.apache.maven.plugins</groupId>
+            <artifactId>maven-jar-plugin</artifactId>
+            <version>3.2.0</version>
+        </dependency>
+
 
         <dependency>
             <groupId>org.springframework.security</groupId>
@@ -62,6 +75,7 @@
     </dependencies>
 
     <build>
+        <defaultGoal>install</defaultGoal>
         <plugins>
             <plugin>
                 <artifactId>maven-assembly-plugin</artifactId>
@@ -70,8 +84,9 @@
                         <descriptorRef>jar-with-dependencies</descriptorRef>
                     </descriptorRefs>
                     <archive>
+                        <index>true</index>
                         <manifest>
-                            <mainClass>edu.school21.sockets.app.Main</mainClass>
+                            <mainClass>school21.sockets.app.Main</mainClass>
                         </manifest>
                     </archive>
                 </configuration>

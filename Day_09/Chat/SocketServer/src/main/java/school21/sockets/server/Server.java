@@ -46,7 +46,7 @@ public class Server {
         }
     }
 
-    public void interactionЦithСlient() {
+    public void interactionСlient() {
         String messageFromClient = null;
         try {
             messageFromClient = in.readLine();
@@ -56,7 +56,10 @@ public class Server {
                     messageFromClient = in.readLine();
                     out.println(messageFromClient);
 
-                } else if (messageFromClient.equals("Successful!")) { stop(); }
+                } else if (messageFromClient.equals("exit")) {
+                    out.println("Successful!");
+                    stop();
+                }
                 else {
                     out.println("unrecognised greeting");
                 }
