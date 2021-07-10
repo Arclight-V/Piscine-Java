@@ -15,6 +15,8 @@ import school21.sockets.repositories.UsersRepository;
 import school21.sockets.repositories.UsersRepositoryJdbcImpl;
 import school21.sockets.server.Server;
 
+import javax.sql.DataSource;
+
 
 @Configuration
 @ComponentScan("school21.sockets")
