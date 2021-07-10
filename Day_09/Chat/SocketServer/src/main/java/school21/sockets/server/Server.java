@@ -49,9 +49,9 @@ public class Server {
     public void interactionСlient() {
         String messageFromClient = null;
         try {
-            messageFromClient = in.readLine();
             while (true) {
-                if (messageFromClient.equals("Sign up")) {
+                messageFromClient = in.readLine();
+                if (messageFromClient.equals("signUp")) {
                     out.println("Enter username:");
                     messageFromClient = in.readLine();
                     out.println(messageFromClient);
@@ -61,7 +61,7 @@ public class Server {
                     stop();
                 }
                 else {
-                    out.println("unrecognised greeting");
+                    out.println("unrecognised command");
                 }
             }
         } catch (IOException e) {

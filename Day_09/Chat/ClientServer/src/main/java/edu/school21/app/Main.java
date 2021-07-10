@@ -1,9 +1,6 @@
 package edu.school21.app;
 
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStreamReader;
-import java.io.PrintWriter;
+import java.io.*;
 import java.net.Socket;
 import java.util.Scanner;
 
@@ -27,11 +24,12 @@ public class Main {
 
 
         public void work() {
-            String msgServer, msgClient;
+            String messageFromServer, msgClient;
             while (true) {
                 try {
-                    msgServer = in.readLine();
-                    if (msgServer.equals("Successful!")) {
+                    messageFromServer = in.readLine();
+                    System.out.println(messageFromServer);
+                    if (messageFromServer.equals("Successful!")) {
                         break;
                     }
                     msgClient = inputClient.readLine();
@@ -88,7 +86,7 @@ public class Main {
         }
         int port = 0;
         try {
-            port = Integer.parseInt(args[0].substring(15, args[0].length()));
+            port = Integer.parseInt(args[0].substring(14, args[0].length()));
         } catch (NumberFormatException e) {
             System.err.println("port must be number");
             System.exit(1);
