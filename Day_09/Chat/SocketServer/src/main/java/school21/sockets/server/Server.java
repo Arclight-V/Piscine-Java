@@ -30,24 +30,37 @@ public class Server {
             out = new PrintWriter(clientSocket.getOutputStream(), true);
             in = new BufferedReader(new InputStreamReader(clientSocket.getInputStream()));
             out.println("Hello from Server!");
-            String greeting = in.readLine();
-            if ("hello server".equals(greeting)) {
-                out.println("hello client");
-            }
-            else {
-                out.println("unrecognised greeting");
-            }
         } catch (IOException e) {
             e.printStackTrace();
         }
     }
 
-    public void stop() {
+    private void stop() {
         try {
             in.close();
             out.close();
             clientSocket.close();
             serverSocket.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void interactionЦithСlient() {
+        String messageFromClient = null;
+        try {
+            messageFromClient = in.readLine();
+            while (true) {
+                if (messageFromClient.equals("Sign up")) {
+                    out.println("Enter username:");
+                    messageFromClient = in.readLine();
+                    out.println(messageFromClient);
+
+                } else if (messageFromClient.equals("Successful!")) { stop(); }
+                else {
+                    out.println("unrecognised greeting");
+                }
+            }
         } catch (IOException e) {
             e.printStackTrace();
         }
