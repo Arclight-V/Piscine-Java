@@ -4,23 +4,25 @@ import java.util.Objects;
 
 public class User {
     private Long Identifier;
-    private String Email;
+    private String Name;
     private String Password;
-
-
+    
     public User() {
         Identifier = 0L;
-        Email = "gmail";
+        Name = "gmail";
         Password = "";
+        Name = "testName";
     }
 
-    public User(Long identifier, String email) {
+    
+    public User(Long identifier, String Name) {
         Identifier = identifier;
-        Email = email;
+        Name = Name;
     }
-
-    public User(String email, String password) {
-        Email = email;
+    
+    
+    public User(String Name, String password) {
+        Name = Name;
         Password = password;
     }
 
@@ -40,12 +42,12 @@ public class User {
         Identifier = identifier;
     }
 
-    public String getEmail() {
-        return Email;
+    public String getName() {
+        return Name;
     }
 
-    public void setEmail(String email) {
-        Email = email;
+    public void setName(String Name) {
+        Name = Name;
     }
 
     @Override
@@ -53,19 +55,19 @@ public class User {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         User user = (User) o;
-        return Identifier.equals(user.Identifier) && Email.equals(user.Email);
+        return Identifier.equals(user.Identifier) && Name.equals(user.Name);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(Identifier, Email);
+        return Objects.hash(Identifier, Name);
     }
 
     @Override
     public String toString() {
         return "User{" +
                 "Identifier=" + Identifier +
-                ", Email='" + Email + '\'' +
+                ", Name='" + Name + '\'' +
                 '}';
     }
 }

@@ -20,9 +20,8 @@ public class UsersServiceImpl implements UsersService {
     PasswordEncoder passwordEncoder;
 
     @Override
-    public String signUp(String email) throws SQLException {
-        String password = UUID.randomUUID().toString();
-        User user = new User(email, password);
+    public String signUp(String login, String password) throws SQLException {
+        User user = new User(login, passwordEncoder.encode(password));
         usersRepository.save(user);
         return password;
     }

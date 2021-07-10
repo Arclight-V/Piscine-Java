@@ -21,7 +21,7 @@ public class UsersRepositoryImpl implements UsersRepository{
     final String selectAll =  "SELECT * FROM users.usertable";
     final String UpdateUser =  "UPDATE users.usertable SET ";
     final String DeleteUser =  "DELETE FROM users.usertable WHERE userid = ";
-    final String selectUserEmail =  "SELECT * FROM users.usertable WHERE email = ";
+    final String selectUserName =  "SELECT * FROM users.usertable WHERE name = ";
 
     @Autowired
     public UsersRepositoryImpl(HikariDataSource dataSource) {
@@ -42,12 +42,12 @@ public class UsersRepositoryImpl implements UsersRepository{
 
     @Override
     public void save(User entity) {
-        jdbcTemplate.update(String.format("INSERT INTO users.userTable VALUES ('%d', %s);", entity.getIdentifier(), entity.getEmail()));
+        jdbcTemplate.update(String.format("INSERT INTO users.usertable VALUES ('%d', %s);", entity.getIdentifier(), entity.getName()));
     }
 
     @Override
     public void update(User entity) {
-        jdbcTemplate.update(UpdateUser + "email = " + '\'' + entity.getEmail() + '\'' + " WHERE userid = " + entity.getIdentifier());
+        jdbcTemplate.update(UpdateUser + "name = " + '\'' + entity.getName() + '\'' + " WHERE userid = " + entity.getIdentifier());
     }
 
     @Override
@@ -56,7 +56,7 @@ public class UsersRepositoryImpl implements UsersRepository{
     }
 
     @Override
-    public Optional<User> findByEmail(String email) {
-        return Optional.of(jdbcTemplate.queryForObject(selectUserEmail + email, new Object[]{email}, new BeanPropertyRowMapper<>(User.class)));
+    public Optional<User> findByEmail(String name) {
+        return Optional.of(jdbcTemplate.queryForObject(selectUserName + name, new Object[]{name}, new BeanPropertyRowMapper<>(User.class)));
     }
 }

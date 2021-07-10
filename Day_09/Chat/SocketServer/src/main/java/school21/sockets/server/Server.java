@@ -10,6 +10,7 @@ import java.io.InputStreamReader;
 import java.io.PrintWriter;
 import java.net.ServerSocket;
 import java.net.Socket;
+import java.sql.SQLException;
 
 @Component
 public class Server {
@@ -46,14 +47,35 @@ public class Server {
         }
     }
 
+    private void signUp() {
+        String login, password;
+
+        try {
+            while (true) {
+                out.println("Enter username:");
+                login = in.readLine();
+                out.println("Enter password:");
+                password = in.readLine();
+                if (login.isEmpty() || password.isEmpty()) {
+                    out.println("Login and password not be empty:");
+                } else {
+                    usersService.signUp(login, password);
+                }
+            }
+        } catch (IOException | SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+
     public void interactionСlient() {
         String messageFromClient = null;
         try {
             while (true) {
                 messageFromClient = in.readLine();
                 if (messageFromClient.equals("signUp")) {
-                    out.println("Enter username:");
-                    messageFromClient = in.readLine();
+                    signUp();
+
                     out.println(messageFromClient);
 
                 } else if (messageFromClient.equals("exit")) {
