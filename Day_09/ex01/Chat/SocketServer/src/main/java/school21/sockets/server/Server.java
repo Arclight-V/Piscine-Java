@@ -25,12 +25,8 @@ public class Server {
         try {
             serverSocket = new ServerSocket(port);
             while (true) {
-                new EchoClientHandler(serverSocket.accept()).start();
+                echoClientHandlers.add(new EchoClientHandler(serverSocket.accept()));
             }
-//            clientSocket = serverSocket.accept();
-//            out = new PrintWriter(clientSocket.getOutputStream(), true);
-//            in = new BufferedReader(new InputStreamReader(clientSocket.getInputStream()));
-//            out.println("Hello from Server!");
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -46,6 +42,7 @@ public class Server {
 
         public EchoClientHandler(Socket socket) {
             this.clientSocket = socket;
+            start();
         }
 
         public void run() {
@@ -86,19 +83,21 @@ public class Server {
             String massageClient;
 
             try {
-                while((massageClient = in.readLine()) != null) {
+                while(true) {
+                    massageClient = in.readLine();
                     if (massageClient.equals("exit")) {
                         break;
                     }
+                    out.println(login + " :" + massageClient);
                     for (EchoClientHandler echoClientHandler : echoClientHandlers) {
-                        echoClientHandler.out.println(login + ':' + massageClient);
+//                        echoClientHandler.out.println(login + " :" + massageClient);
+                        out.write(login + massageClient + '\n');
+                        out.flush();
                     }
                 }
             } catch (IOException e) {
-
+                e.printStackTrace();
             }
-
-
         }
 
         private void signUp() {
@@ -113,7 +112,6 @@ public class Server {
                         out.println("Login and password not be empty:");
                     } else {
 //                        usersService.signUp(login, password);
-                        out.println("Start messaging!");
                     }
             } catch (IOException  e) {
                 e.printStackTrace();
